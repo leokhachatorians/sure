@@ -7,8 +7,10 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         models.Product.objects.all().delete()
 
-        for _ in range(100):
-            product = models.Product.objects.create()
+        for i in range(100):
+            product = models.Product.objects.create(
+                name=f"Fancy Painting #{i}"
+            )
 
             for size in ('s', 'm', 'l'):
                 models.ProductDetails.objects.create(
