@@ -5,6 +5,8 @@ class Command(BaseCommand):
     help = 'Populate available products'
 
     def handle(self, *args, **kwargs):
+        models.Product.objects.all().delete()
+
         for _ in range(100):
             product = models.Product.objects.create()
 
@@ -13,5 +15,3 @@ class Command(BaseCommand):
                     product=product,
                     size=size
                 )
-
-
