@@ -32,7 +32,7 @@ class Customer(models.Model):
     email = models.EmailField(max_length=255)
     phone = models.CharField(max_length=13)
     address_1 = models.TextField()
-    address_2 = models.TextField()
+    address_2 = models.TextField(blank=True)
     city = models.CharField(max_length=255)
     postal_code = models.CharField(max_length=12)
     country = models.CharField(max_length=255)
@@ -41,7 +41,7 @@ class Customer(models.Model):
 class Order(models.Model):
     uid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     product = models.ForeignKey(Product, related_name='order_product', on_delete=models.DO_NOTHING)
-    product_details = models.ForeignKey(Product, related_name='order_product_details', on_delete=models.DO_NOTHING)
+    size = models.CharField(max_length=6)
     customer = models.ForeignKey(Customer, on_delete=models.DO_NOTHING, related_name='customer')
     product_price = models.IntegerField(default=1000)
     shipping_price = models.IntegerField(default=499)
