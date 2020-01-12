@@ -7,14 +7,13 @@ from ecommerce.models import Customer, Order, Product, ProductDetails
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
-        exclude = ['id']
+        fields = '__all__'
 
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        exclude = ['id']
-        read_only_fields = ['name', 'image_url']
+        fields = '__all__'
 
 
 class ProductDetailsSerializer(serializers.ModelSerializer):
@@ -25,7 +24,6 @@ class ProductDetailsSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
     customer = CustomerSerializer(required=True)
-    product = ProductSerializer(read_only=True)
     product_details = ProductDetailsSerializer(write_only=True)
 
     class Meta:
@@ -33,16 +31,19 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = [
             'customer', 'product', 'product_price',
             'shipping_price', 'total_price', 'product_details',
+            'size'
         ]
 
         read_only_fields = [
             'product_price', 'shipping_price', 'total_price',
+            'size'
         ]
+        depth = 1
 
     def create(self, validated_data):
         customer_data = validated_data.pop('customer')
         product_details = validated_data.pop('product_details')
-        product = product_details.pop('product')
+        product = product_details['product']
         size = product_details['size']
 
         if size == ProductDetails.SMALL:
