@@ -4,7 +4,11 @@ from django.db import models
 
 
 class Product(models.Model):
+    name = models.CharField(max_length=32)
     image_url = models.CharField(max_length=255, default='http://lorempixel.com/output/animals-q-c-640-480-4.jpg')
+
+    def __str__(self):
+        return self.name
 
 
 class ProductDetails(models.Model):
