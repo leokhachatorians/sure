@@ -2,6 +2,7 @@ import uuid
 
 from django.db import models
 
+
 class Product(models.Model):
     image_url = models.CharField(max_length=255, default='http://lorempixel.com/output/animals-q-c-640-480-4.jpg')
 
@@ -26,8 +27,8 @@ class Customer(models.Model):
     last_name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255)
     phone = models.CharField(max_length=13)
-    address_1 = models.TimeField()
-    address_2 = models.TimeField()
+    address_1 = models.TextField()
+    address_2 = models.TextField()
     city = models.CharField(max_length=255)
     postal_code = models.CharField(max_length=12)
     country = models.CharField(max_length=255)
