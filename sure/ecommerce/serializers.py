@@ -31,12 +31,12 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = [
             'customer', 'product', 'product_price',
             'shipping_price', 'total_price', 'product_details',
-            'size'
+            'size', 'uid'
         ]
 
         read_only_fields = [
             'product_price', 'shipping_price', 'total_price',
-            'size'
+            'size', 'uid'
         ]
         depth = 1
 
